@@ -7,16 +7,16 @@ import io.reactivex.Maybe
 import org.mockito.stubbing.OngoingStubbing
 import java.util.concurrent.CountDownLatch
 
-fun <T : Any> OngoingStubbing<Maybe<T>>.thenEmit(value: T): ExpectationBuilder<T> =
+fun <T : Any> OngoingStubbing<Maybe<T>>.thenEmit(value: T): ExpectationDefaultBuilder<T> =
     ExpectationMaybeBuilderDefault(this, value)
 
-fun <T : Any> OngoingStubbing<Maybe<T>>.thenEmpty(): ExpectationBuilder<T> =
+fun <T : Any> OngoingStubbing<Maybe<T>>.thenEmpty(): ExpectationDefaultBuilder<T> =
     ExpectationMaybeBuilderDefault(this, null)
 
 class ExpectationMaybeBuilderDefault<T : Any>(
     private val ongoingStubbing: OngoingStubbing<Maybe<T>>,
     private val returnValue: T?
-) : ExpectationBuilder<T> {
+) : ExpectationDefaultBuilder<T> {
 
     override fun build(): Expectation {
         val latch = CountDownLatch(1)
