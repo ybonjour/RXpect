@@ -1,32 +1,29 @@
 package ch.yvu.rxpect.dispose
 
 import ch.yvu.rxpect.Expectation
-import ch.yvu.rxpect.ExpectationWithLatch
-import com.nhaarman.mockitokotlin2.whenever
+import ch.yvu.rxpect.buildExpectation
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
+import org.mockito.stubbing.Answer
 
-fun <T> expectDispose(methodCall: Single<T>?): Expectation {
-    val expectation = ExpectationWithLatch()
-    whenever(methodCall).thenAnswer {
-        Single.never<T>().doOnDispose { expectation.fulfilled() }
+fun <T> expectDispose(methodCall: Single<T>?): Expectation =
+    buildExpectation(methodCall) { expectation ->
+        Answer {
+            Single.never<T>().doOnDispose { expectation.fulfilled() }
+        }
     }
-    return expectation
-}
 
-fun <T> expectDispose(methodCall: Maybe<T>?): Expectation {
-    val expectation = ExpectationWithLatch()
-    whenever(methodCall).thenAnswer {
-        Maybe.never<T>().doOnDispose { expectation.fulfilled() }
+fun <T> expectDispose(methodCall: Maybe<T>?): Expectation =
+    buildExpectation(methodCall) { expectation ->
+        Answer {
+            Maybe.never<T>().doOnDispose { expectation.fulfilled() }
+        }
     }
-    return expectation
-}
 
-fun <T> expectDispose(methodCall: Observable<T>?): Expectation {
-    val expectation = ExpectationWithLatch()
-    whenever(methodCall).thenAnswer {
-        Observable.never<T>().doOnDispose { expectation.fulfilled() }
+fun <T> expectDispose(methodCall: Observable<T>?): Expectation =
+    buildExpectation(methodCall) { expectation ->
+        Answer {
+            Observable.never<T>().doOnDispose { expectation.fulfilled() }
+        }
     }
-    return expectation
-}
