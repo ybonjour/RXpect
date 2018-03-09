@@ -8,5 +8,5 @@ import org.mockito.invocation.Invocation
 
 class SubscribeExpectation : BaseExpectation() {
     override fun buildAssertionError(invocation: Invocation, mockingDetails: MockingDetails): MockitoAssertionError =
-        WantedButNotInvoked("The ${invocation.method.returnType} returned by ${invocation.method.name} has never been subscribed to.")
+        WantedButNotInvoked("The ${invocation.method.returnType.simpleName} returned by ${invocation.method.name} has never been subscribed to.")
 }

@@ -1,7 +1,7 @@
 package ch.yvu.rxpect.subscribe
 
 import ch.yvu.rxpect.Expectation
-import ch.yvu.rxpect.buildExpectation
+import ch.yvu.rxpect.setupExpectation
 import io.reactivex.Single
 import org.mockito.stubbing.OngoingStubbing
 
@@ -13,7 +13,7 @@ class SubscribeSingleExpectationBuilder<T>(
     private val value: T
 ) : SubscribeExpectationBuilder<T> {
     override fun build(): Expectation =
-        buildExpectation(ongoingStubbing) { expectation ->
+        setupExpectation(SubscribeExpectation(), ongoingStubbing) { expectation ->
             {
                 Single.just(value).doOnSubscribe { expectation.fulfilled() }
             }

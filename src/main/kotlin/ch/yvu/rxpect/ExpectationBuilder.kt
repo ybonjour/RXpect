@@ -1,6 +1,5 @@
 package ch.yvu.rxpect
 
-import ch.yvu.rxpect.expect.DefaultExpectation
 import org.mockito.Mockito
 import org.mockito.invocation.Invocation
 import org.mockito.invocation.InvocationOnMock
@@ -12,8 +11,7 @@ interface ExpectationBuilder<T> {
     fun build(): Expectation
 }
 
-fun <T> buildExpectation(ongoingStubbing: OngoingStubbing<T>, answerFn: (Expectation) -> (InvocationOnMock) -> T): Expectation {
-    val expectation = DefaultExpectation()
+fun <T> setupExpectation(expectation: BaseExpectation, ongoingStubbing: OngoingStubbing<T>, answerFn: (Expectation) -> (InvocationOnMock) -> T): Expectation {
     ongoingStubbing.thenAnswer(answerFn(expectation))
     expectation.invocation = extractLastInvocation(ongoingStubbing)
     expectation.mock = ongoingStubbing.getMock()

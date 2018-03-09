@@ -1,7 +1,7 @@
 package ch.yvu.rxpect.subscribe
 
 import ch.yvu.rxpect.Expectation
-import ch.yvu.rxpect.buildExpectation
+import ch.yvu.rxpect.setupExpectation
 import io.reactivex.Maybe
 import org.mockito.stubbing.OngoingStubbing
 
@@ -16,7 +16,7 @@ class SubscribeMaybeExpectationBuilder<T>(
     private val value: T?
 ) : SubscribeExpectationBuilder<T> {
     override fun build(): Expectation =
-        buildExpectation(ongoingStubbing) { expectation ->
+        setupExpectation(SubscribeExpectation(), ongoingStubbing) { expectation ->
             {
                 if (value != null) {
                     Maybe.just(value).doOnSubscribe { expectation.fulfilled() }

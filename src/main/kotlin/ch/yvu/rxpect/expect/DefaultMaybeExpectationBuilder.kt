@@ -1,7 +1,7 @@
 package ch.yvu.rxpect.expect
 
 import ch.yvu.rxpect.Expectation
-import ch.yvu.rxpect.buildExpectation
+import ch.yvu.rxpect.setupExpectation
 import io.reactivex.Maybe
 import org.mockito.stubbing.OngoingStubbing
 
@@ -17,7 +17,7 @@ class DefaultMaybeExpectationBuilder<T : Any>(
 ) : ExpectationDefaultBuilder<T> {
 
     override fun build(): Expectation =
-        buildExpectation(ongoingStubbing) { expectation ->
+        setupExpectation(DefaultExpectation(), ongoingStubbing) { expectation ->
             {
                 expectation.fulfilled()
                 if (returnValue != null) {

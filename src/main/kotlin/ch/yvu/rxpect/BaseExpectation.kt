@@ -3,7 +3,6 @@ package ch.yvu.rxpect
 import org.mockito.MockingDetails
 import org.mockito.Mockito.mockingDetails
 import org.mockito.exceptions.base.MockitoAssertionError
-import org.mockito.internal.exceptions.Reporter.wantedButNotInvoked
 import org.mockito.invocation.Invocation
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit.SECONDS
@@ -25,7 +24,7 @@ abstract class BaseExpectation : Expectation {
     override fun verify() {
         val result = latch.await(verifyTimeoutInSeconds, SECONDS)
         if (!result) {
-            throw wantedButNotInvoked(invocation, mockingDetails(mock).invocations.toList())
+            throw buildAssertionError(invocation, mockingDetails(mock))
         }
     }
 
