@@ -1,12 +1,12 @@
-package ch.yvu.rxpect.subscirbe
+package ch.yvu.rxpect.subscribe
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import io.reactivex.Maybe
+import io.reactivex.Single
 import org.junit.Test
 import org.mockito.exceptions.verification.WantedButNotInvoked
 
-class SubscribeMaybeExpectationBuilderTest {
+class SubscribeSingleExpectationBuilderTest {
     @Test
     fun buildsCorrectExpectationForMethodCalled() {
         val mock: TestClass = mock()
@@ -28,6 +28,6 @@ class SubscribeMaybeExpectationBuilderTest {
     }
 
     interface TestClass {
-        fun method(): Maybe<Unit>
+        fun method(): Single<Unit>
     }
 }

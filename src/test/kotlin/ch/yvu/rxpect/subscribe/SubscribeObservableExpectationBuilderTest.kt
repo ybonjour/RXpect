@@ -1,4 +1,4 @@
-package ch.yvu.rxpect.subscirbe
+package ch.yvu.rxpect.subscribe
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever

@@ -1,4 +1,4 @@
-package ch.yvu.rxpect.subscirbe
+package ch.yvu.rxpect.subscribe
 
 import ch.yvu.rxpect.Expectation
 import ch.yvu.rxpect.buildExpectation

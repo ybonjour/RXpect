@@ -1,4 +1,4 @@
-package ch.yvu.rxpect.subscirbe
+package ch.yvu.rxpect.subscribe
 
 import ch.yvu.rxpect.BaseExpectation
 import org.mockito.MockingDetails
