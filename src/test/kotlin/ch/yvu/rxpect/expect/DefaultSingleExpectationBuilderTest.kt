@@ -2,11 +2,11 @@ package ch.yvu.rxpect.expect
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import io.reactivex.Observable
+import io.reactivex.Single
 import org.junit.Test
 import org.mockito.exceptions.verification.WantedButNotInvoked
 
-class ExpectationObservableBuilderDefaultTest {
+class DefaultSingleExpectationBuilderTest {
 
     @Test
     fun buildsCorrectExpectationForMethodCalled() {
@@ -27,6 +27,6 @@ class ExpectationObservableBuilderDefaultTest {
     }
 
     interface TestClass {
-        fun method(): Observable<Unit>
+        fun method(): Single<Unit>
     }
 }

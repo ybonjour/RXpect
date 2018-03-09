@@ -5,7 +5,7 @@ import io.reactivex.Single
 import org.junit.Test
 import org.mockito.exceptions.verification.WantedButNotInvoked
 
-class ExpectationSingleBuilderDisposeTest {
+class DisposeSingleExpectationBuilderTest {
     @Test
     fun buildsCorrectExpectationForSingleDisposed() {
         val mock: TestClass = mock()
