@@ -5,26 +5,26 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.exceptions.verification.WantedButNotInvoked
 
-class ExpectationWithLatchTest {
+class BaseExpectationTest {
 
-    private lateinit var expectation: ExpectationWithLatch
+    private lateinit var baseExpectation: BaseExpectation
 
     @Before
     fun setUp() {
-        expectation = ExpectationWithLatch()
-        expectation.mock = mock()
-        expectation.invocation = mock()
+        baseExpectation = BaseExpectation()
+        baseExpectation.mock = mock()
+        baseExpectation.invocation = mock()
     }
 
     @Test
     fun verifyDoesNotThrowErrorIfExpectationIsFulfilled() {
-        expectation.fulfilled()
+        baseExpectation.fulfilled()
 
-        expectation.verify()
+        baseExpectation.verify()
     }
 
     @Test(expected = WantedButNotInvoked::class)
     fun verifyThrowsWantedButNotInvokedErrorIfExpectationIsNotFulfilled() {
-        expectation.verify()
+        baseExpectation.verify()
     }
 }

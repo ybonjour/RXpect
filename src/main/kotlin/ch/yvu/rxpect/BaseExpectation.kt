@@ -6,7 +6,7 @@ import org.mockito.invocation.Invocation
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit.SECONDS
 
-class ExpectationWithLatch : Expectation {
+class BaseExpectation : Expectation {
     companion object {
         const val verifyTimeoutInSeconds = 2L
     }

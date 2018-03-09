@@ -12,7 +12,7 @@ interface ExpectationBuilder<T> {
 }
 
 fun <T> buildExpectation(ongoingStubbing: OngoingStubbing<T>, answerFn: (Expectation) -> (InvocationOnMock) -> T): Expectation {
-    val expectation = ExpectationWithLatch()
+    val expectation = BaseExpectation()
     ongoingStubbing.thenAnswer(answerFn(expectation))
     expectation.invocation = extractLastInvocation(ongoingStubbing)
     expectation.mock = ongoingStubbing.getMock()
