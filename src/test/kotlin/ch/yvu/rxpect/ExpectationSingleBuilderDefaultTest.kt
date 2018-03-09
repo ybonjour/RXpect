@@ -1,18 +1,18 @@
 package ch.yvu.rxpect
 
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Single
 import org.junit.Test
 import org.mockito.exceptions.verification.WantedButNotInvoked
 
-class ExpectationBuilderDefaultTest {
+class ExpectationSingleBuilderDefaultTest {
 
     @Test
     fun buildsCorrectExpectationForMethodCalled() {
         val mock: TestClass = mock()
-        val expectationBuilder: ExpectationBuilder = ExpectationBuilderDefault()
 
-        val expectation = expectationBuilder.forSingle(mock.method(), Unit)
+        val expectation = expect(whenever(mock.method()).thenEmit(Unit))
 
         mock.method()
 
@@ -22,9 +22,7 @@ class ExpectationBuilderDefaultTest {
     @Test(expected = WantedButNotInvoked::class)
     fun buildsCorrectExpectationForMethodNotCalled() {
         val mock: TestClass = mock()
-        val expectationBuilder: ExpectationBuilder = ExpectationBuilderDefault()
-
-        val expectation = expectationBuilder.forSingle(mock.method(), Unit)
+        val expectation = expect(whenever(mock.method()).thenEmit(Unit))
 
         expectation.verify()
     }
