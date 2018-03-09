@@ -8,7 +8,7 @@ import org.mockito.stubbing.OngoingStubbing
 fun <T : Any> OngoingStubbing<Observable<T>>.thenEmit(value: T): ExpectationDefaultBuilder<T> =
     ExpectationObservableBuilderDefault(this, value)
 
-fun <T : Any> OngoingStubbing<Observable<T>>.thenEmpty(): ExpectationDefaultBuilder<T> =
+fun <T : Any> OngoingStubbing<Observable<T>>.thenEmitNothing(): ExpectationDefaultBuilder<T> =
     ExpectationObservableBuilderDefault(this, null)
 
 class ExpectationObservableBuilderDefault<T : Any>(

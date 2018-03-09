@@ -8,7 +8,7 @@ import org.mockito.stubbing.OngoingStubbing
 fun <T> OngoingStubbing<Maybe<T>>.thenEmit(value: T): SubscribeExpectationBuilder<T> =
     SubscribeMaybeExpectationBuilder(this, value)
 
-fun <T> OngoingStubbing<Maybe<T>>.thenEmpty(): SubscribeExpectationBuilder<T> =
+fun <T> OngoingStubbing<Maybe<T>>.thenEmitNothing(): SubscribeExpectationBuilder<T> =
     SubscribeMaybeExpectationBuilder(this, null)
 
 class SubscribeMaybeExpectationBuilder<T>(

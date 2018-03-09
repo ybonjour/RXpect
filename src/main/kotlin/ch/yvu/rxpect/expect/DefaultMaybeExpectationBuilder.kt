@@ -8,7 +8,7 @@ import org.mockito.stubbing.OngoingStubbing
 fun <T : Any> OngoingStubbing<Maybe<T>>.thenEmit(value: T): ExpectationDefaultBuilder<T> =
     DefaultMaybeExpectationBuilder(this, value)
 
-fun <T : Any> OngoingStubbing<Maybe<T>>.thenEmpty(): ExpectationDefaultBuilder<T> =
+fun <T : Any> OngoingStubbing<Maybe<T>>.thenEmitNothing(): ExpectationDefaultBuilder<T> =
     DefaultMaybeExpectationBuilder(this, null)
 
 class DefaultMaybeExpectationBuilder<T : Any>(

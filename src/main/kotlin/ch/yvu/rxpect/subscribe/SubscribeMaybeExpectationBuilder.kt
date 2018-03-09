@@ -8,7 +8,7 @@ import org.mockito.stubbing.OngoingStubbing
 fun <T> OngoingStubbing<Observable<T>>.thenEmit(value: T): SubscribeExpectationBuilder<T> =
     SubscribeObservableExpectationBuilder(this, value)
 
-fun <T> OngoingStubbing<Observable<T>>.thenEmpty(): SubscribeExpectationBuilder<T> =
+fun <T> OngoingStubbing<Observable<T>>.thenEmitNothing(): SubscribeExpectationBuilder<T> =
     SubscribeObservableExpectationBuilder(this, null)
 
 class SubscribeObservableExpectationBuilder<T>(
