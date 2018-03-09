@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit.SECONDS
 
 class ExpectationWithLatch : Expectation {
     companion object {
-
         const val verifyTimeoutInSeconds = 2L
     }
 
