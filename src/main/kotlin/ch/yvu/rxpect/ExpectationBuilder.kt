@@ -1,14 +1,14 @@
 package ch.yvu.rxpect
 
-import com.nhaarman.mockitokotlin2.whenever
 import org.mockito.stubbing.Answer
+import org.mockito.stubbing.OngoingStubbing
 
 interface ExpectationBuilder<T> {
     fun build(): Expectation
 }
 
-fun <T> buildExpectation(methodCall: T, answerFn: (Expectation) -> Answer<T>): Expectation {
+fun <T> buildExpectation(ongoingStubbing: OngoingStubbing<T>, answerFn: (Expectation) -> Answer<T>): Expectation {
     val expectation = ExpectationWithLatch()
-    whenever(methodCall).thenAnswer(answerFn(expectation))
+    ongoingStubbing.thenAnswer(answerFn(expectation))
     return expectation
 }
