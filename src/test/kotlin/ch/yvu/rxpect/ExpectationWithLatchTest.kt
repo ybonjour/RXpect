@@ -13,7 +13,7 @@ class ExpectationWithLatchTest {
     fun setUp() {
         expectation = ExpectationWithLatch()
         expectation.mock = mock()
-        expectation.stubbing = mock()
+        expectation.invocation = mock()
     }
 
     @Test

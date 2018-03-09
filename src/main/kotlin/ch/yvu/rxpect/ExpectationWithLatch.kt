@@ -3,7 +3,6 @@ package ch.yvu.rxpect
 import org.mockito.Mockito
 import org.mockito.exceptions.verification.WantedButNotInvoked
 import org.mockito.invocation.Invocation
-import org.mockito.stubbing.Stubbing
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit.SECONDS
 
@@ -14,7 +13,7 @@ class ExpectationWithLatch : Expectation {
 
     private val latch: CountDownLatch = CountDownLatch(1)
 
-    var stubbing: Stubbing? = null
+    var invocation: Invocation? = null
     var mock: Any? = null
 
     override fun fulfilled() {
@@ -39,9 +38,9 @@ class ExpectationWithLatch : Expectation {
 
     private fun matchingInvocation(): Invocation? =
         Mockito.mockingDetails(mock).invocations.find {
-            it.method == stubbing?.invocation?.method
+            it.method == invocation?.method
         }
 
     private fun methodName() =
-        stubbing?.invocation?.method?.name ?: "<method unknown>"
+        invocation?.method?.name ?: "<method unknown>"
 }
