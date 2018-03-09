@@ -1,5 +1,6 @@
-package ch.yvu.rxpect
+package ch.yvu.rxpect.expect
 
+import ch.yvu.rxpect.expect
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Maybe

@@ -1,5 +1,8 @@
-package ch.yvu.rxpect
+package ch.yvu.rxpect.expect
 
+import ch.yvu.rxpect.Expectation
+import ch.yvu.rxpect.ExpectationBuilder
+import ch.yvu.rxpect.ExpectationWithLatch
 import io.reactivex.Observable
 import org.mockito.stubbing.OngoingStubbing
 import java.util.concurrent.CountDownLatch
