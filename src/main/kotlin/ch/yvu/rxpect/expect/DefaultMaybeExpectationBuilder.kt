@@ -3,7 +3,6 @@ package ch.yvu.rxpect.expect
 import ch.yvu.rxpect.Expectation
 import ch.yvu.rxpect.buildExpectation
 import io.reactivex.Maybe
-import org.mockito.stubbing.Answer
 import org.mockito.stubbing.OngoingStubbing
 
 fun <T : Any> OngoingStubbing<Maybe<T>>.thenEmit(value: T): ExpectationDefaultBuilder<T> =
@@ -19,7 +18,7 @@ class DefaultMaybeExpectationBuilder<T : Any>(
 
     override fun build(): Expectation =
         buildExpectation(ongoingStubbing) { expectation ->
-            Answer {
+            {
                 expectation.fulfilled()
                 if (returnValue != null) {
                     Maybe.just(returnValue)

@@ -3,7 +3,6 @@ package ch.yvu.rxpect.expect
 import ch.yvu.rxpect.Expectation
 import ch.yvu.rxpect.buildExpectation
 import io.reactivex.Single
-import org.mockito.stubbing.Answer
 import org.mockito.stubbing.OngoingStubbing
 
 fun <T : Any> OngoingStubbing<Single<T>>.thenEmit(value: T): ExpectationDefaultBuilder<T> =
@@ -16,7 +15,7 @@ class ExpectationSingleBuilderDefault<T : Any>(
 
     override fun build(): Expectation =
         buildExpectation(ongoingStubbing) { expectation ->
-            Answer {
+            {
                 expectation.fulfilled()
                 Single.just(returnValue)
             }
