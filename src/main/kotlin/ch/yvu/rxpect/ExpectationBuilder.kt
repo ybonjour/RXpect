@@ -14,6 +14,7 @@ fun <T> buildExpectation(ongoingStubbing: OngoingStubbing<T>, answerFn: (Expecta
     val expectation = ExpectationWithLatch()
     ongoingStubbing.thenAnswer(answerFn(expectation))
     expectation.stubbing = extractLastStubbing(ongoingStubbing)
+    expectation.mock = ongoingStubbing.getMock()
     return expectation
 }
 

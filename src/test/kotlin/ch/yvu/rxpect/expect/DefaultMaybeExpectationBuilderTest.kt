@@ -11,9 +11,9 @@ class DefaultMaybeExpectationBuilderTest {
     @Test
     fun buildsCorrectExpectationForMethodCalled() {
         val mock: TestClass = mock()
-        val expectation = expect(whenever(mock.method()).thenEmit(Unit))
+        val expectation = expect(whenever(mock.foo("bar")).thenEmit(Unit))
 
-        mock.method()
+        mock.foo("bar")
 
         expectation.verify()
     }
@@ -21,12 +21,12 @@ class DefaultMaybeExpectationBuilderTest {
     @Test(expected = WantedButNotInvoked::class)
     fun buildsCorrectExpectationForMethodNotCalled() {
         val mock: TestClass = mock()
-        val expectation = expect(whenever(mock.method()).thenEmit(Unit))
+        val expectation = expect(whenever(mock.foo("foo")).thenEmit(Unit))
 
         expectation.verify()
     }
 
     interface TestClass {
-        fun method(): Maybe<Unit>
+        fun foo(value: String): Maybe<Unit>
     }
 }
