@@ -6,28 +6,27 @@ import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
-import java.util.concurrent.CountDownLatch
 
 fun <T> expectDispose(methodCall: Single<T>?): Expectation {
-    val latch = CountDownLatch(1)
+    val expectation = ExpectationWithLatch()
     whenever(methodCall).thenAnswer {
-        Single.never<T>().doOnDispose { latch.countDown() }
+        Single.never<T>().doOnDispose { expectation.fulfilled() }
     }
-    return ExpectationWithLatch(latch)
+    return expectation
 }
 
 fun <T> expectDispose(methodCall: Maybe<T>?): Expectation {
-    val latch = CountDownLatch(1)
+    val expectation = ExpectationWithLatch()
     whenever(methodCall).thenAnswer {
-        Maybe.never<T>().doOnDispose { latch.countDown() }
+        Maybe.never<T>().doOnDispose { expectation.fulfilled() }
     }
-    return ExpectationWithLatch(latch)
+    return expectation
 }
 
 fun <T> expectDispose(methodCall: Observable<T>?): Expectation {
-    val latch = CountDownLatch(1)
+    val expectation = ExpectationWithLatch()
     whenever(methodCall).thenAnswer {
-        Observable.never<T>().doOnDispose { latch.countDown() }
+        Observable.never<T>().doOnDispose { expectation.fulfilled() }
     }
-    return ExpectationWithLatch(latch)
+    return expectation
 }

@@ -4,7 +4,6 @@ import ch.yvu.rxpect.Expectation
 import ch.yvu.rxpect.ExpectationWithLatch
 import io.reactivex.Single
 import org.mockito.stubbing.OngoingStubbing
-import java.util.concurrent.CountDownLatch
 
 fun <T> OngoingStubbing<Single<T>>.thenEmit(value: T): SubscribeExpectationBuilder<T> =
     SubscribeSingleExpectationBuilder(this, value)
@@ -14,11 +13,11 @@ class SubscribeSingleExpectationBuilder<T>(
     private val value: T
 ) : SubscribeExpectationBuilder<T> {
     override fun build(): Expectation {
-        val latch = CountDownLatch(1)
+        val expectation = ExpectationWithLatch()
         ongoingStubbing.thenAnswer {
-            Single.just(value).doOnSubscribe { latch.countDown() }
+            Single.just(value).doOnSubscribe { expectation.fulfilled() }
         }
 
-        return ExpectationWithLatch(latch)
+        return expectation
     }
 }

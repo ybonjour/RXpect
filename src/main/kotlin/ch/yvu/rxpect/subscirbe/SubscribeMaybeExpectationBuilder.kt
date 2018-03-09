@@ -4,7 +4,6 @@ import ch.yvu.rxpect.Expectation
 import ch.yvu.rxpect.ExpectationWithLatch
 import io.reactivex.Observable
 import org.mockito.stubbing.OngoingStubbing
-import java.util.concurrent.CountDownLatch
 
 fun <T> OngoingStubbing<Observable<T>>.thenEmit(value: T): SubscribeExpectationBuilder<T> =
     SubscribeObservableExpectationBuilder(this, value)
@@ -17,15 +16,15 @@ class SubscribeObservableExpectationBuilder<T>(
     private val value: T?
 ) : SubscribeExpectationBuilder<T> {
     override fun build(): Expectation {
-        val latch = CountDownLatch(1)
+        val expectation = ExpectationWithLatch()
         ongoingStubbing.thenAnswer {
             if (value != null) {
-                Observable.just(value).doOnSubscribe { latch.countDown() }
+                Observable.just(value).doOnSubscribe { expectation.fulfilled() }
             } else {
                 Observable.empty()
             }
         }
 
-        return ExpectationWithLatch(latch)
+        return expectation
     }
 }

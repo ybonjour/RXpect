@@ -4,7 +4,6 @@ import ch.yvu.rxpect.Expectation
 import ch.yvu.rxpect.ExpectationWithLatch
 import io.reactivex.Maybe
 import org.mockito.stubbing.OngoingStubbing
-import java.util.concurrent.CountDownLatch
 
 fun <T> OngoingStubbing<Maybe<T>>.thenEmit(value: T): SubscribeExpectationBuilder<T> =
     SubscribeMaybeExpectationBuilder(this, value)
@@ -17,15 +16,15 @@ class SubscribeMaybeExpectationBuilder<T>(
     private val value: T?
 ) : SubscribeExpectationBuilder<T> {
     override fun build(): Expectation {
-        val latch = CountDownLatch(1)
+        val expectation = ExpectationWithLatch()
         ongoingStubbing.thenAnswer {
             if (value != null) {
-                Maybe.just(value).doOnSubscribe { latch.countDown() }
+                Maybe.just(value).doOnSubscribe { expectation.fulfilled() }
             } else {
                 Maybe.empty()
             }
         }
 
-        return ExpectationWithLatch(latch)
+        return expectation
     }
 }
