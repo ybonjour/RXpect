@@ -7,7 +7,6 @@ import org.junit.Test
 import org.mockito.exceptions.verification.WantedButNotInvoked
 
 class DefaultMaybeExpectationBuilderTest {
-
     @Test
     fun buildsCorrectExpectationForMethodCalled() {
         val mock: TestClass = mock()
