@@ -31,4 +31,3 @@ fun <T> expectDispose(methodCall: Observable<T>?): Expectation {
     }
     return ExpectationWithLatch(latch)
 }
-
