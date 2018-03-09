@@ -9,6 +9,10 @@ buildscript {
     }
 }
 
+plugins {
+    id 'org.jmailen.kotlinter' version '1.8.3'
+}
+
 group 'ch.yvu.rxpect'
 version '0.1'
 
@@ -35,3 +39,5 @@ compileKotlin {
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
+
+compileKotlin.dependsOn lintKotlin

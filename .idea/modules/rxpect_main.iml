@@ -38,13 +38,13 @@
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.30" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.2.30" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.objenesis:objenesis:2.6" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: io.reactivex.rxjava2:rxkotlin:2.2.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.mockito:mockito-core:2.13.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-alpha03" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: io.reactivex.rxjava2:rxjava:2.1.6" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.objenesis:objenesis:2.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.reactivestreams:reactive-streams:1.0.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: net.bytebuddy:byte-buddy-agent:1.7.9" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: io.reactivex.rxjava2:rxkotlin:2.2.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: net.bytebuddy:byte-buddy:1.7.9" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: net.bytebuddy:byte-buddy-agent:1.7.9" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: io.reactivex.rxjava2:rxjava:2.1.6" level="project" />
   </component>
 </module>
