@@ -8,7 +8,7 @@ interface ExpectationBuilder<T> {
     fun build(): Expectation
 }
 
-fun <T> setupExpectation(expectation: BaseExpectation, ongoingStubbing: OngoingStubbing<T>, answerFn: (Expectation) -> (InvocationOnMock) -> T): Expectation {
+fun <T> setupExpectation(expectation: BaseExpectation, ongoingStubbing: OngoingStubbing<T>, answerFn: (Expectation) -> (InvocationOnMock) -> T?): Expectation {
     ongoingStubbing.thenAnswer(answerFn(expectation))
     expectation.invocation = extractLastInvocation(ongoingStubbing)
     expectation.mock = ongoingStubbing.getMock()

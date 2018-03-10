@@ -1,10 +1,12 @@
 package ch.yvu.rxpect
 
-import ch.yvu.rxpect.expect.DefaultExpectation
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.Before
 import org.junit.Test
+import org.mockito.MockingDetails
+import org.mockito.exceptions.base.MockitoAssertionError
 import org.mockito.exceptions.verification.WantedButNotInvoked
+import org.mockito.invocation.Invocation
 
 class BaseExpectationTest {
 
@@ -12,7 +14,7 @@ class BaseExpectationTest {
 
     @Before
     fun setUp() {
-        baseExpectation = DefaultExpectation()
+        baseExpectation = TestExpectation()
         baseExpectation.mock = mock()
         baseExpectation.invocation = mock()
     }
@@ -27,5 +29,11 @@ class BaseExpectationTest {
     @Test(expected = WantedButNotInvoked::class)
     fun verifyThrowsWantedButNotInvokedErrorIfExpectationIsNotFulfilled() {
         baseExpectation.verify()
+    }
+
+    class TestExpectation : BaseExpectation() {
+        override fun buildAssertionError(invocation: Invocation, mockingDetails: MockingDetails): MockitoAssertionError {
+            throw WantedButNotInvoked("Wanted but not invoked")
+        }
     }
 }

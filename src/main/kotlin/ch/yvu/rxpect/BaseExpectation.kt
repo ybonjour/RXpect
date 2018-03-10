@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit.SECONDS
 
 abstract class BaseExpectation : Expectation {
     companion object {
-        const val verifyTimeoutInSeconds = 2L
+        const val verifyTimeoutInSeconds = 1L
     }
 
     private val latch: CountDownLatch = CountDownLatch(1)
