@@ -1,11 +1,35 @@
 # RXpect ![Build Status](https://travis-ci.org/ybonjour/RXpect.svg?branch=master)
-Unit Testing RX Applications
+RXpect extends Mockito to simplify unit testing for RX Kotlin applicatios.
 
-### Test subscribe
+### Test with expectations
 ```kotlin
 class MyPresenter(private val view: MyView) {
     fun onResume() {
         disposable = users.getUsers().subscribeBy {
+            onSuccess = { view.show(it)}
+            onError = { println("ERROR: $it") }
+        }
+    }
+}
+```
+
+```kotlin
+@Test
+fun testUserIsShown() {
+    whenever(users.getUsers()).thenReturn(Single.just(user))
+    val expectation = expect(view.show(user))
+    
+    presenter.onResume()
+    
+    expectation.verify()
+}
+```
+
+### Test subscribe
+```kotlin
+class MyPresenter {
+    fun onResume() {
+        users.getUsers().subscribeBy {
             onSuccess = ::println
             onError = { println("ERROR: $it") }
         }
