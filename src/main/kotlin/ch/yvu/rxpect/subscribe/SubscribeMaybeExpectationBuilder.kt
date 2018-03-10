@@ -2,27 +2,34 @@ package ch.yvu.rxpect.subscribe
 
 import ch.yvu.rxpect.Expectation
 import ch.yvu.rxpect.setupExpectation
+import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Observable
-import org.mockito.stubbing.OngoingStubbing
 
-fun <T> OngoingStubbing<Observable<T>>.thenEmit(value: T): SubscribeExpectationBuilder<T> =
-    SubscribeObservableExpectationBuilder(this, value)
-
-fun <T> OngoingStubbing<Observable<T>>.thenEmitNothing(): SubscribeExpectationBuilder<T> =
-    SubscribeObservableExpectationBuilder(this, null)
+fun <T> expectSubscribe(methodCall: Observable<T>?): SubscribeExpectation<T> =
+    SubscribeObservableExpectationBuilder(methodCall, null).build() as SubscribeExpectation<T>
 
 class SubscribeObservableExpectationBuilder<T>(
-    private val ongoingStubbing: OngoingStubbing<Observable<T>>,
-    private val value: T?
+    private val methodCall: Observable<T>?,
+    private val defaultValue: T?
 ) : SubscribeExpectationBuilder<T> {
 
+    private var value: T? = defaultValue
+
+    override fun emittedValue(value: T) {
+        this.value = value
+    }
+
     override fun build(): Expectation =
-        setupExpectation(SubscribeExpectation(), ongoingStubbing) { expectation ->
+        setupExpectation(SubscribeExpectation(this), whenever(methodCall)) { expectation ->
             {
-                if (value != null) {
-                    Observable.just(value).doOnSubscribe { expectation.fulfilled() }
-                } else {
-                    Observable.empty()
+                value.let {
+                    val observable =
+                        if (it != null) {
+                            Observable.just(it)
+                        } else {
+                            Observable.empty()
+                        }
+                    observable.doOnSubscribe { expectation.fulfilled() }
                 }
             }
         }
