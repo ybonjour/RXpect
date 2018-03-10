@@ -4,11 +4,11 @@ import ch.yvu.rxpect.mockito.MockitoHelpers.extractLastInvocation
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.stubbing.OngoingStubbing
 
-interface ExpectationBuilder<T> {
-    fun build(): Expectation
+interface ExpectationBuilder<T : Expectation> {
+    fun build(): T
 }
 
-fun <T> setupExpectation(expectation: BaseExpectation, ongoingStubbing: OngoingStubbing<T>, answerFn: (Expectation) -> (InvocationOnMock) -> T?): Expectation {
+fun <T, U : BaseExpectation> setupExpectation(expectation: U, ongoingStubbing: OngoingStubbing<T>, answerFn: (Expectation) -> (InvocationOnMock) -> T?): U {
     ongoingStubbing.thenAnswer(answerFn(expectation))
     expectation.invocation = extractLastInvocation(ongoingStubbing)
     expectation.mock = ongoingStubbing.getMock()

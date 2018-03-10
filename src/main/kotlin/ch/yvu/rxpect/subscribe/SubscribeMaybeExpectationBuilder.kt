@@ -1,12 +1,11 @@
 package ch.yvu.rxpect.subscribe
 
-import ch.yvu.rxpect.Expectation
 import ch.yvu.rxpect.setupExpectation
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Observable
 
 fun <T> expectSubscribe(methodCall: Observable<T>?): SubscribeExpectation<T> =
-    SubscribeObservableExpectationBuilder(methodCall, null).build() as SubscribeExpectation<T>
+    SubscribeObservableExpectationBuilder(methodCall, null).build()
 
 class SubscribeObservableExpectationBuilder<T>(
     private val methodCall: Observable<T>?,
@@ -19,7 +18,7 @@ class SubscribeObservableExpectationBuilder<T>(
         this.value = value
     }
 
-    override fun build(): Expectation =
+    override fun build(): SubscribeExpectation<T> =
         setupExpectation(SubscribeExpectation(this), whenever(methodCall)) { expectation ->
             {
                 value.let {

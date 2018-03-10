@@ -1,12 +1,11 @@
 package ch.yvu.rxpect.subscribe
 
-import ch.yvu.rxpect.Expectation
 import ch.yvu.rxpect.setupExpectation
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Maybe
 
 fun <T> expectSubscribe(methodCall: Maybe<T>?): SubscribeExpectation<T> =
-    SubscribeMaybeExpectationBuilder(methodCall, null).build() as SubscribeExpectation<T>
+    SubscribeMaybeExpectationBuilder(methodCall, null).build()
 
 class SubscribeMaybeExpectationBuilder<T>(
     private val methodCall: Maybe<T>?,
@@ -18,7 +17,7 @@ class SubscribeMaybeExpectationBuilder<T>(
         this.value = value
     }
 
-    override fun build(): Expectation =
+    override fun build(): SubscribeExpectation<T> =
         setupExpectation(SubscribeExpectation(this), whenever(methodCall)) { expectation ->
             {
                 value.let {
