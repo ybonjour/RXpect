@@ -40,7 +40,7 @@ class MyPresenter {
 ```kotlin
 @Test
 fun showsUser() {
-    val expectation = expectSubscribe(whenever(users.getUsers()).thenEmit(user))
+    val expectation = expectSubscribe(users.getUsers()).thenEmit(user)
     
     presenter.onResume()
         
