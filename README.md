@@ -16,7 +16,7 @@ class MyPresenter(private val view: MyView) {
 
 ```kotlin
 @Test
-fun testUserIsShown() {
+fun userIsShown() {
     whenever(users.getUsers()).thenReturn(Single.just(user))
     val expectation = expect(view.show(user))
     
