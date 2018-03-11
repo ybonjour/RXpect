@@ -27,11 +27,19 @@ abstract class BaseExpectation : FulfillableExpectation {
     override fun verify() {
         val result = latch.await(verifyTimeoutInSeconds, SECONDS)
         if (!result) {
-            throw buildAssertionError(invocation, mockingDetails(mock))
+            throw buildWantedButNotInvoked(invocation, mockingDetails(mock))
         }
     }
 
-    abstract fun buildAssertionError(invocation: Invocation, mockingDetails: MockingDetails): MockitoAssertionError
+    override fun verifyNotFulfilled() {
+        val result = latch.await(verifyTimeoutInSeconds, SECONDS)
+        if (result) {
+            throw buildNotWantedButInvoked(invocation)
+        }
+    }
+
+    abstract fun buildNotWantedButInvoked(invocation: Invocation): MockitoAssertionError
+    abstract fun buildWantedButNotInvoked(invocation: Invocation, mockingDetails: MockingDetails): MockitoAssertionError
 }
 
 fun <T, U : BaseExpectation> setupExpectation(expectation: U, ongoingStubbing: OngoingStubbing<T>, answerFn: (FulfillableExpectation) -> (InvocationOnMock) -> T?): U {

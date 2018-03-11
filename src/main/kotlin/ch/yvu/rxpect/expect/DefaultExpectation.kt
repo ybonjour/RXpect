@@ -8,7 +8,10 @@ import org.mockito.internal.exceptions.Reporter
 import org.mockito.invocation.Invocation
 
 class DefaultExpectation<T>(private val builder: DefaultExpectationBuilder<T>) : BaseExpectation() {
-    override fun buildAssertionError(invocation: Invocation, mockingDetails: MockingDetails): MockitoAssertionError =
+    override fun buildNotWantedButInvoked(invocation: Invocation): MockitoAssertionError =
+        Reporter.neverWantedButInvoked(invocation, invocation.location)
+
+    override fun buildWantedButNotInvoked(invocation: Invocation, mockingDetails: MockingDetails): MockitoAssertionError =
         Reporter.wantedButNotInvoked(invocation, mockingDetails.invocations.toList())
 
     fun thenReturn(value: T): Expectation {

@@ -31,8 +31,23 @@ class BaseExpectationTest {
         baseExpectation.verify()
     }
 
+    @Test(expected = MockitoAssertionError::class)
+    fun verifyNotFulfilledThrowsExceptionIfExpectationIsFulfilled() {
+        baseExpectation.fulfilled()
+
+        baseExpectation.verifyNotFulfilled()
+    }
+
+    @Test
+    fun verifyNotFulfilledDoesNotThrowsExceptionIfExpectationIsNotFulfilled() {
+        baseExpectation.verifyNotFulfilled()
+    }
+
     class TestExpectation : BaseExpectation() {
-        override fun buildAssertionError(invocation: Invocation, mockingDetails: MockingDetails): MockitoAssertionError {
+        override fun buildNotWantedButInvoked(invocation: Invocation): MockitoAssertionError =
+            MockitoAssertionError("Never wanted but invoked")
+
+        override fun buildWantedButNotInvoked(invocation: Invocation, mockingDetails: MockingDetails): MockitoAssertionError {
             throw WantedButNotInvoked("Wanted but not invoked")
         }
     }
