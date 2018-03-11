@@ -1,5 +1,5 @@
 package ch.yvu.rxpect
 
-interface ExpectationBuilder<T : Expectation> {
+interface ExpectationBuilder<T : FulfillableExpectation> {
     fun build(): T
 }

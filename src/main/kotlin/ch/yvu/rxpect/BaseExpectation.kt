@@ -10,7 +10,7 @@ import org.mockito.stubbing.OngoingStubbing
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit.SECONDS
 
-abstract class BaseExpectation : Expectation {
+abstract class BaseExpectation : FulfillableExpectation {
     companion object {
         const val verifyTimeoutInSeconds = 1L
     }
@@ -34,7 +34,7 @@ abstract class BaseExpectation : Expectation {
     abstract fun buildAssertionError(invocation: Invocation, mockingDetails: MockingDetails): MockitoAssertionError
 }
 
-fun <T, U : BaseExpectation> setupExpectation(expectation: U, ongoingStubbing: OngoingStubbing<T>, answerFn: (Expectation) -> (InvocationOnMock) -> T?): U {
+fun <T, U : BaseExpectation> setupExpectation(expectation: U, ongoingStubbing: OngoingStubbing<T>, answerFn: (FulfillableExpectation) -> (InvocationOnMock) -> T?): U {
     ongoingStubbing.thenAnswer(answerFn(expectation))
     expectation.invocation = MockitoHelpers.extractLastInvocation(ongoingStubbing)
     expectation.mock = ongoingStubbing.getMock()

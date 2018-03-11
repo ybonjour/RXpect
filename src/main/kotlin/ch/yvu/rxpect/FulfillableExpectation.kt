@@ -1,6 +1,6 @@
 package ch.yvu.rxpect
 
-interface Expectation {
+interface FulfillableExpectation {
     fun fulfilled()
     fun verify()
 }
