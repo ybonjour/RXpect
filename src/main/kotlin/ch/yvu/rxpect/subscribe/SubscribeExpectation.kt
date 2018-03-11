@@ -1,7 +1,7 @@
 package ch.yvu.rxpect.subscribe
 
 import ch.yvu.rxpect.BaseExpectation
-import ch.yvu.rxpect.FulfillableExpectation
+import ch.yvu.rxpect.Expectation
 import org.mockito.MockingDetails
 import org.mockito.exceptions.base.MockitoAssertionError
 import org.mockito.exceptions.verification.WantedButNotInvoked
@@ -11,7 +11,7 @@ class SubscribeExpectation<T>(val subscribeExpectationBuilder: SubscribeExpectat
     override fun buildAssertionError(invocation: Invocation, mockingDetails: MockingDetails): MockitoAssertionError =
         WantedButNotInvoked("The ${invocation.method.returnType.simpleName} returned by ${invocation.method.name} has never been subscribed to.")
 
-    fun thenEmit(value: T): FulfillableExpectation {
+    fun thenEmit(value: T): Expectation {
         subscribeExpectationBuilder.emittedValue(value)
         return this
     }
