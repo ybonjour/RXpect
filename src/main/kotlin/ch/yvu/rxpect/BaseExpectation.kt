@@ -1,11 +1,13 @@
 package ch.yvu.rxpect
 
 import ch.yvu.rxpect.mockito.MockitoHelpers
+import ch.yvu.rxpect.mockito.locationFiltered
 import org.mockito.MockingDetails
 import org.mockito.Mockito.mockingDetails
 import org.mockito.exceptions.base.MockitoAssertionError
 import org.mockito.invocation.Invocation
 import org.mockito.invocation.InvocationOnMock
+import org.mockito.invocation.Location
 import org.mockito.stubbing.OngoingStubbing
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit.SECONDS
@@ -19,8 +21,10 @@ abstract class BaseExpectation : FulfillableExpectation {
 
     lateinit var invocation: Invocation
     lateinit var mock: Any
+    private var invocationLocation: Location? = null
 
     override fun fulfilled() {
+        this.invocationLocation = locationFiltered()
         latch.countDown()
     }
 
@@ -34,11 +38,17 @@ abstract class BaseExpectation : FulfillableExpectation {
     override fun verifyNotFulfilled() {
         val result = latch.await(verifyTimeoutInSeconds, SECONDS)
         if (result) {
-            throw buildNotWantedButInvoked(invocation)
+            invocationLocation.let {
+                if (it == null) {
+                    throw IllegalStateException("The Location of the actual method invocation was never set.")
+                } else {
+                    throw buildNotWantedButInvoked(invocation, it)
+                }
+            }
         }
     }
 
-    abstract fun buildNotWantedButInvoked(invocation: Invocation): MockitoAssertionError
+    abstract fun buildNotWantedButInvoked(invocation: Invocation, location: Location): MockitoAssertionError
     abstract fun buildWantedButNotInvoked(invocation: Invocation, mockingDetails: MockingDetails): MockitoAssertionError
 }
 

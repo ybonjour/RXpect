@@ -7,6 +7,7 @@ import org.mockito.MockingDetails
 import org.mockito.exceptions.base.MockitoAssertionError
 import org.mockito.exceptions.verification.WantedButNotInvoked
 import org.mockito.invocation.Invocation
+import org.mockito.invocation.Location
 
 class BaseExpectationTest {
 
@@ -44,7 +45,7 @@ class BaseExpectationTest {
     }
 
     class TestExpectation : BaseExpectation() {
-        override fun buildNotWantedButInvoked(invocation: Invocation): MockitoAssertionError =
+        override fun buildNotWantedButInvoked(invocation: Invocation, location: Location): MockitoAssertionError =
             MockitoAssertionError("Never wanted but invoked")
 
         override fun buildWantedButNotInvoked(invocation: Invocation, mockingDetails: MockingDetails): MockitoAssertionError {
