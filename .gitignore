@@ -16,3 +16,7 @@ out
 
 .idea/**/gradle.xml
 .idea/**/libraries
+
+.idea/shelf
+
+.DS_Store
