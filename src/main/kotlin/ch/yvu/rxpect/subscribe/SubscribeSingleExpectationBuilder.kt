@@ -1,15 +1,8 @@
 package ch.yvu.rxpect.subscribe
 
-import ch.yvu.rxpect.mockito.defaultValueGenerator
 import ch.yvu.rxpect.setupExpectation
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Single
-
-inline fun <reified T : Any> expectSubscribe(methodCall: Single<T>?): SubscribeExpectation<T> =
-    SubscribeSingleExpectationBuilder(
-        methodCall,
-        defaultValueGenerator("Please provide a return value as follows expectSubscribe(mock.foo()).thenReturn(returnValue)"))
-        .build()
 
 class SubscribeSingleExpectationBuilder<T>(
     private val methodCall: Single<T>?,

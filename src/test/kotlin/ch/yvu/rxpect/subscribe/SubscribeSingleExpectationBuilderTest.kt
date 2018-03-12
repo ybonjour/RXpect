@@ -1,5 +1,6 @@
 package ch.yvu.rxpect.subscribe
 
+import ch.yvu.rxpect.RXpect.expectSubscribe
 import com.nhaarman.mockitokotlin2.mock
 import io.reactivex.Single
 import org.junit.Test

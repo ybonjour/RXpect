@@ -4,9 +4,6 @@ import ch.yvu.rxpect.setupExpectation
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Maybe
 
-fun <T> expectSubscribe(methodCall: Maybe<T>?): SubscribeExpectation<T> =
-    SubscribeMaybeExpectationBuilder(methodCall, null).build()
-
 class SubscribeMaybeExpectationBuilder<T>(
     private val methodCall: Maybe<T>?,
     private val defaultValue: T?
