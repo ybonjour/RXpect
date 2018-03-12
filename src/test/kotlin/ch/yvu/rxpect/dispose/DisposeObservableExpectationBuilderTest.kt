@@ -1,5 +1,6 @@
 package ch.yvu.rxpect.dispose
 
+import ch.yvu.rxpect.RXpect.expectDispose
 import com.nhaarman.mockitokotlin2.mock
 import io.reactivex.Observable
 import org.junit.Test

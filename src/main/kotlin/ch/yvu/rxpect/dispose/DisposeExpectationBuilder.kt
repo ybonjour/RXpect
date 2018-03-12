@@ -7,23 +7,25 @@ import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
 
-fun <T> expectDispose(methodCall: Single<T>?): Expectation =
-    setupExpectation(DisposeExpectation(), whenever(methodCall)) { expectation ->
-        {
-            Single.never<T>().doOnDispose { expectation.fulfilled() }
+internal object DisposeExpectationBuilder {
+    fun <T> expectDispose(methodCall: Single<T>?): Expectation =
+        setupExpectation(DisposeExpectation(), whenever(methodCall)) { expectation ->
+            {
+                Single.never<T>().doOnDispose { expectation.fulfilled() }
+            }
         }
-    }
 
-fun <T> expectDispose(methodCall: Maybe<T>?): Expectation =
-    setupExpectation(DisposeExpectation(), whenever(methodCall)) { expectation ->
-        {
-            Maybe.never<T>().doOnDispose { expectation.fulfilled() }
+    fun <T> expectDispose(methodCall: Maybe<T>?): Expectation =
+        setupExpectation(DisposeExpectation(), whenever(methodCall)) { expectation ->
+            {
+                Maybe.never<T>().doOnDispose { expectation.fulfilled() }
+            }
         }
-    }
 
-fun <T> expectDispose(methodCall: Observable<T>?): Expectation =
-    setupExpectation(DisposeExpectation(), whenever(methodCall)) { expectation ->
-        {
-            Observable.never<T>().doOnDispose { expectation.fulfilled() }
+    fun <T> expectDispose(methodCall: Observable<T>?): Expectation =
+        setupExpectation(DisposeExpectation(), whenever(methodCall)) { expectation ->
+            {
+                Observable.never<T>().doOnDispose { expectation.fulfilled() }
+            }
         }
-    }
+}
