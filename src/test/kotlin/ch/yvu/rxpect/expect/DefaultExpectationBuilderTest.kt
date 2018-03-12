@@ -1,5 +1,6 @@
 package ch.yvu.rxpect.expect
 
+import ch.yvu.rxpect.RXpect.expect
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.Test

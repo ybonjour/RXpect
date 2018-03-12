@@ -1,6 +1,8 @@
 package ch.yvu.rxpect
 
 import ch.yvu.rxpect.dispose.DisposeExpectationBuilder
+import ch.yvu.rxpect.expect.DefaultExpectation
+import ch.yvu.rxpect.expect.DefaultExpectationBuilderImpl
 import ch.yvu.rxpect.mockito.defaultValueGenerator
 import ch.yvu.rxpect.subscribe.SubscribeExpectation
 import ch.yvu.rxpect.subscribe.SubscribeMaybeExpectationBuilder
@@ -30,5 +32,11 @@ object RXpect {
         SubscribeSingleExpectationBuilder(
             methodCall,
             defaultValueGenerator("Please provide a return value as follows expectSubscribe(mock.foo()).thenReturn(returnValue)"))
+            .build()
+
+    inline fun <reified T : Any> expect(methodCall: T): DefaultExpectation<T> =
+        DefaultExpectationBuilderImpl(
+            methodCall,
+            defaultValueGenerator("Please provide a return value as follows expect(mock.foo()).thenReturn(returnValue)"))
             .build()
 }
