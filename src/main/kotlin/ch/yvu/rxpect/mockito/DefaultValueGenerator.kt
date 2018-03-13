@@ -1,12 +1,12 @@
 package ch.yvu.rxpect.mockito
 
-inline fun <reified T : Any> defaultValueGenerator(messageIfNoDefaultValue: String): () -> T =
+inline fun <reified T> defaultValueGenerator(messageIfNoDefaultValue: String): () -> T =
     {
         defaultValue()
             ?: throw IllegalStateException(messageIfNoDefaultValue)
     }
 
-inline fun <reified T : Any> defaultValue(): T? =
+inline fun <reified T> defaultValue(): T? =
     when (T::class) {
         Unit::class -> {
             Unit as T

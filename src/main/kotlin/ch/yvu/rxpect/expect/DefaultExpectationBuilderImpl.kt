@@ -3,7 +3,7 @@ package ch.yvu.rxpect.expect
 import ch.yvu.rxpect.setupExpectation
 import com.nhaarman.mockitokotlin2.whenever
 
-class DefaultExpectationBuilderImpl<T : Any>(
+class DefaultExpectationBuilderImpl<T>(
     private val methodCall: T,
     private val defaultAnswer: () -> T
 ) : DefaultExpectationBuilder<T> {

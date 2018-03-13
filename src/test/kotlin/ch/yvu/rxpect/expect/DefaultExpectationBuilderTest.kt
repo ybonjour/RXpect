@@ -27,6 +27,17 @@ class DefaultExpectationBuilderTest {
         expectation.verify()
     }
 
+    @Test
+    fun fulfilledExpectationWithReturnValueWithoutDefaultVAlue() {
+        val mock: TestClass = mock()
+        val foo: Foo = mock()
+        val expectation = expect(mock.foo2()).thenReturn(foo)
+
+        mock.foo2()
+
+        expectation.verify()
+    }
+
     @Test(expected = WantedButNotInvoked::class)
     fun unfulfilledExpectation() {
         val mock: TestClass = mock()
@@ -37,5 +48,8 @@ class DefaultExpectationBuilderTest {
 
     interface TestClass {
         fun foo(value: String): Int
+        fun foo2(): Foo
     }
+
+    interface Foo
 }
