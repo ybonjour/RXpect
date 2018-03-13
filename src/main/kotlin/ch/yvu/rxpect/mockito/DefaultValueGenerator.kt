@@ -1,5 +1,8 @@
 package ch.yvu.rxpect.mockito
 
+import io.reactivex.Maybe
+import io.reactivex.Observable
+
 inline fun <reified T> defaultValueGenerator(messageIfNoDefaultValue: String): () -> T =
     {
         defaultValue()
@@ -45,6 +48,12 @@ inline fun <reified T> defaultValue(): T? =
         }
         Map::class -> {
             emptyMap<Any, Any>() as T
+        }
+        Observable::class -> {
+            Observable.empty<Any>() as T
+        }
+        Maybe::class -> {
+            Maybe.empty<Any>() as T
         }
         else -> {
             null

@@ -1,5 +1,7 @@
 package ch.yvu.rxpect.mockito
 
+import io.reactivex.Maybe
+import io.reactivex.Observable
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
@@ -90,6 +92,26 @@ class DefaultValueGeneratorTest {
         val value = defaultValue<Map<String, String>>()
 
         assertThat(value, `is`(emptyMap()))
+    }
+
+    @Test
+    fun generatesObservable() {
+        val value = defaultValue<Observable<Int>>()
+
+        val testObserver = value?.test()
+
+        testObserver!!.assertNoErrors()
+        testObserver.assertNoValues()
+    }
+
+    @Test
+    fun generatesMaybe() {
+        val value = defaultValue<Maybe<Int>>()
+
+        val testObserver = value?.test()
+
+        testObserver!!.assertNoErrors()
+        testObserver.assertNoValues()
     }
 
     @Test
