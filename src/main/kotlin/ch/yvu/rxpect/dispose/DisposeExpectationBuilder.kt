@@ -3,6 +3,7 @@ package ch.yvu.rxpect.dispose
 import ch.yvu.rxpect.Expectation
 import ch.yvu.rxpect.setupExpectation
 import com.nhaarman.mockitokotlin2.whenever
+import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -26,6 +27,13 @@ internal object DisposeExpectationBuilder {
         setupExpectation(DisposeExpectation(), whenever(methodCall)) { expectation ->
             {
                 Observable.never<T>().doOnDispose { expectation.fulfilled() }
+            }
+        }
+
+    fun expectDispose(methodCall: Completable?): Expectation =
+        setupExpectation(DisposeExpectation(), whenever(methodCall)) { expectation ->
+            {
+                Completable.never().doOnDispose { expectation.fulfilled() }
             }
         }
 }

@@ -8,6 +8,7 @@ import ch.yvu.rxpect.subscribe.SubscribeExpectation
 import ch.yvu.rxpect.subscribe.SubscribeMaybeExpectationBuilder
 import ch.yvu.rxpect.subscribe.SubscribeObservableExpectationBuilder
 import ch.yvu.rxpect.subscribe.SubscribeSingleExpectationBuilder
+import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -20,6 +21,9 @@ object RXpect {
         DisposeExpectationBuilder.expectDispose(methodCall)
 
     fun <T> expectDispose(methodCall: Observable<T>?): Expectation =
+        DisposeExpectationBuilder.expectDispose(methodCall)
+
+    fun expectDispose(methodCall: Completable?): Expectation =
         DisposeExpectationBuilder.expectDispose(methodCall)
 
     fun <T> expectSubscribe(methodCall: Observable<T>?): SubscribeExpectation<T> =
