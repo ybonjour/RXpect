@@ -1,5 +1,6 @@
 package ch.yvu.rxpect.mockito
 
+import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -121,6 +122,13 @@ class DefaultValueGeneratorTest {
         val value = defaultValue<Single<Int>>()
 
         assertThat(value, `is`(Single.never<Int>()))
+    }
+
+    @Test
+    fun generatesCompletable() {
+        val value = defaultValue<Completable>()
+
+        assertThat(value, `is`(Completable.complete()))
     }
 
     @Test

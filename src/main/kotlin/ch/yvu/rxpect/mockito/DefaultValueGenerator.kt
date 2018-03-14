@@ -1,5 +1,6 @@
 package ch.yvu.rxpect.mockito
 
+import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -58,6 +59,9 @@ inline fun <reified T> defaultValue(): T? =
         }
         Single::class -> {
             Single.never<Any>() as T
+        }
+        Completable::class -> {
+            Completable.complete() as T
         }
         else -> {
             null
