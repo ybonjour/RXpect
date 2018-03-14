@@ -2,6 +2,8 @@ package ch.yvu.rxpect.mockito
 
 import io.reactivex.Maybe
 import io.reactivex.Observable
+import io.reactivex.Single
+import junit.framework.Assert.fail
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
@@ -115,9 +117,38 @@ class DefaultValueGeneratorTest {
     }
 
     @Test
-    fun returnsNullForUnknwonType() {
+    fun generatesSingle() {
+        val value = defaultValue<Single<Int>>()
+
+        assertThat(value, `is`(Single.never<Int>()))
+    }
+
+    @Test
+    fun returnsNullForUnknownType() {
         val value = defaultValue<Runnable>()
 
         assertThat(value, nullValue())
+    }
+
+    @Test
+    fun defaultValueGeneratorWithMessageThrowsExceptionForUnknownType() {
+        val message = "message"
+        val generator = defaultValueGenerator<Runnable>(message)
+
+        try {
+            generator()
+            fail()
+        } catch (e: IllegalStateException) {
+            assertThat(e.message, `is`(message))
+        }
+    }
+
+    @Test
+    fun defaultValueGeneratorReturnsValueForKnownType() {
+        val generator = defaultValueGenerator<Int>("message")
+
+        val result = generator()
+
+        assertThat(result, `is`(defaultValue<Int>()))
     }
 }
