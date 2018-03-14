@@ -3,10 +3,10 @@ package ch.yvu.rxpect.mockito
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
-import junit.framework.Assert.fail
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.Assert.fail
 import org.junit.Test
 
 class DefaultValueGeneratorTest {
