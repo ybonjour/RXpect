@@ -4,6 +4,7 @@ import ch.yvu.rxpect.dispose.DisposeExpectationBuilder
 import ch.yvu.rxpect.expect.DefaultExpectation
 import ch.yvu.rxpect.expect.DefaultExpectationBuilderImpl
 import ch.yvu.rxpect.mockito.defaultValueGenerator
+import ch.yvu.rxpect.subscribe.SubscribeCompletableExpectationBuilder
 import ch.yvu.rxpect.subscribe.SubscribeExpectation
 import ch.yvu.rxpect.subscribe.SubscribeMaybeExpectationBuilder
 import ch.yvu.rxpect.subscribe.SubscribeObservableExpectationBuilder
@@ -31,6 +32,9 @@ object RXpect {
 
     fun <T> expectSubscribe(methodCall: Maybe<T>?): SubscribeExpectation<T> =
         SubscribeMaybeExpectationBuilder(methodCall, null).build()
+
+    fun expectSubscribe(methodCall: Completable?): Expectation =
+        SubscribeCompletableExpectationBuilder(methodCall).build()
 
     inline fun <reified T : Any> expectSubscribe(methodCall: Single<T>?): SubscribeExpectation<T> =
         SubscribeSingleExpectationBuilder(
