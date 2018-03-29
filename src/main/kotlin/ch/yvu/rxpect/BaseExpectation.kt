@@ -10,11 +10,11 @@ import org.mockito.invocation.InvocationOnMock
 import org.mockito.invocation.Location
 import org.mockito.stubbing.OngoingStubbing
 import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit.SECONDS
+import java.util.concurrent.TimeUnit.MILLISECONDS
 
 abstract class BaseExpectation : FulfillableExpectation {
     companion object {
-        const val verifyTimeoutInSeconds = 1L
+        const val verifyTimeoutInMilliSeconds = 100L
     }
 
     private val latch: CountDownLatch = CountDownLatch(1)
@@ -29,14 +29,14 @@ abstract class BaseExpectation : FulfillableExpectation {
     }
 
     override fun verify() {
-        val result = latch.await(verifyTimeoutInSeconds, SECONDS)
+        val result = latch.await(verifyTimeoutInMilliSeconds, MILLISECONDS)
         if (!result) {
             throw buildWantedButNotInvoked(invocation, mockingDetails(mock))
         }
     }
 
     override fun verifyNotFulfilled() {
-        val result = latch.await(verifyTimeoutInSeconds, SECONDS)
+        val result = latch.await(verifyTimeoutInMilliSeconds, MILLISECONDS)
         if (result) {
             invocationLocation.let {
                 if (it == null) {
