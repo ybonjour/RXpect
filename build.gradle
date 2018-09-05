@@ -1,6 +1,9 @@
 buildscript {
     ext.kotlin_version = '1.2.61'
 
+    ext.rx_version = '2.1.10'
+    ext.mockito_kotlin_version = '2.0.0-alpha03'
+
     repositories {
         mavenCentral()
     }
@@ -26,12 +29,12 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'io.reactivex.rxjava2:rxjava:2.1.10'
-    compileOnly 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-alpha03'
+    compileOnly "io.reactivex.rxjava2:rxjava:$rx_version"
+    compileOnly "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     testCompile 'junit:junit:4.12'
-    testCompile 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-alpha03'
-    testCompile 'io.reactivex.rxjava2:rxjava:2.1.10'
+    testCompile "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
+    testCompile "io.reactivex.rxjava2:rxjava:$rx_version"
 }
 
 compileKotlin {
