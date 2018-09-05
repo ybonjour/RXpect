@@ -13,7 +13,7 @@ buildscript {
 }
 
 plugins {
-    id 'org.jmailen.kotlinter' version '1.8.3'
+    id 'org.jmailen.kotlinter' version '1.16.0'
 }
 
 group 'ch.yvu.rxpect'
