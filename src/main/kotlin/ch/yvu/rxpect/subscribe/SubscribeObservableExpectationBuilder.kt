@@ -2,12 +2,13 @@ package ch.yvu.rxpect.subscribe
 
 import ch.yvu.rxpect.setupExpectation
 import com.nhaarman.mockitokotlin2.whenever
-import io.reactivex.Maybe
+import io.reactivex.Observable
 
-class SubscribeMaybeExpectationBuilder<T>(
-    private val methodCall: Maybe<T>?,
+class SubscribeObservableExpectationBuilder<T>(
+    private val methodCall: Observable<T>?,
     private val defaultValue: T?
 ) : SubscribeExpectationBuilder<T> {
+
     private var value: T? = defaultValue
 
     override fun emittedValue(value: T) {
@@ -18,12 +19,13 @@ class SubscribeMaybeExpectationBuilder<T>(
         setupExpectation(SubscribeExpectation(this), whenever(methodCall)) { expectation ->
             {
                 value.let {
-                    val maybe = if (it != null) {
-                        Maybe.just(it)
-                    } else {
-                        Maybe.empty()
-                    }
-                    maybe.doOnSubscribe { expectation.fulfilled() }
+                    val observable =
+                        if (it != null) {
+                            Observable.just(it)
+                        } else {
+                            Observable.empty()
+                        }
+                    observable.doOnSubscribe { expectation.fulfilled() }
                 }
             }
         }
