@@ -10,7 +10,7 @@ import org.mockito.invocation.Location
 
 class DefaultExpectation<T>(private val builder: DefaultExpectationBuilder<T>) : BaseExpectation() {
     override fun buildNotWantedButInvoked(invocation: Invocation, location: Location): MockitoAssertionError =
-        Reporter.neverWantedButInvoked(invocation, location)
+        Reporter.neverWantedButInvoked(invocation, listOf(location))
 
     override fun buildWantedButNotInvoked(invocation: Invocation, mockingDetails: MockingDetails): MockitoAssertionError =
         Reporter.wantedButNotInvoked(invocation, mockingDetails.invocations.toList())
