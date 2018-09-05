@@ -1,6 +1,6 @@
 # RXpect ![Build Status](https://travis-ci.org/ybonjour/RXpect.svg?branch=master)
-RXpect extends Mockito to simplify unit testing for RX Kotlin applicatios.
-It takes care of synchronizing your test with the application.
+RXpect extends Mockito to simplify unit testing for RX Kotlin applications.
+It takes care of synchronizing your test with your application code.
 
 ### Test with expectations
 ```kotlin
